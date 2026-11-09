@@ -21,3 +21,5 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `
 No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, ADRs, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 
 Every skill that dispatches a subagent says to start it with a fresh context window. Some harnesses (Codex, for one) fork the parent conversation by default, and a fork inherits the parent's context, which is what the subagent was meant to escape.
+
+Every new commit message follows [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/): `<type>[(scope)][!]: <description>`, using a type from `TYPES` in [.githooks/commit-msg](./.githooks/commit-msg), which enforces this. Fix a rejected message rather than bypassing the hook with `--no-verify`. Commits from before this rule stay as they are.

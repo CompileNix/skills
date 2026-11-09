@@ -5,6 +5,14 @@
 
 Agent skills for everyday engineering and workflow, each a small folder under [`skills/`](./skills) with a `SKILL.md`. To find the right one for a situation, start with [`which-skill`](./skills/engineering/which-skill/SKILL.md).
 
+## Commit messages
+
+New commits follow [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/). The Python hook at [`.githooks/commit-msg`](./.githooks/commit-msg) enforces this and lists the allowed types. Turn it on once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Reference
 
 These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
