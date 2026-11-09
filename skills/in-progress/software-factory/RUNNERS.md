@@ -16,7 +16,7 @@ Runner choice is per run: a cheap CI runner for review runs and a microVM for im
 
 ## CI runners
 
-A fresh VM or pod per CI job, started by the git host's own workflow engine; the agent CLI is one step in the job. The orchestrator starts a run with a workflow trigger (issue, PR, schedule, manual dispatch), and a concurrency group keeps two runs off the same ticket. Hosted runners are disposable by construction; self-hosted runners get there through an ephemeral mode, one pod per job, deleted after. Cost is per minute.
+A fresh VM or pod per CI job, started by the git host's own workflow engine; the agent CLI is one step in the job. The orchestrator starts a run with a workflow trigger (issue, PR, schedule, manual dispatch), and a concurrency group keeps two runs off the same issue. Hosted runners are disposable by construction; self-hosted runners get there through an ephemeral mode, one pod per job, deleted after. Cost is per minute.
 
 **Pick it when** the git host is GitHub or GitLab and every trigger is a git host event or a clock: the workflow file is the orchestrator and the run page is the observability platform, so one product fills three slots.
 
@@ -28,7 +28,7 @@ Starting points:
 
 ## MicroVM APIs
 
-An SDK call creates an isolated microVM (vendors say "sandbox") in about a second; the orchestrator execs commands into it, or starts an agent CLI inside it. Cost is per second of vCPU and RAM. The orchestrator creates one per run, kills it at the end, and sets a timeout as the backstop. Providers also sell persistence (pause/resume, snapshots, drives); a factory uses it as a cache, and keeps memory between runs in the ticket tracker, git host and orchestrator.
+An SDK call creates an isolated microVM (vendors say "sandbox") in about a second; the orchestrator execs commands into it, or starts an agent CLI inside it. Cost is per second of vCPU and RAM. The orchestrator creates one per run, kills it at the end, and sets a timeout as the backstop. Providers also sell persistence (pause/resume, snapshots, drives); a factory uses it as a cache, and keeps memory between runs in the issue tracker, git host and orchestrator.
 
 **Pick it when** the factory has its own orchestrator (a server, a queue) and wants many short-lived, parallel runs with no machines to manage. Compare on max run length, concurrency cap, and whether time spent waiting on the model is billed: as of 2026-10, Vercel bills only active CPU, so model-wait time is nearly free there.
 
@@ -36,9 +36,9 @@ Starting points: [E2B](https://e2b.dev/pricing), [Daytona](https://www.daytona.i
 
 ## Bundled agent platforms
 
-A hosted coding agent with its runner included: the vendor provisions a fresh VM or container per run, runs its own agent loop there, and pushes a branch or PR. Only the branch survives. Runs start from an @-mention or assignment in the git host or ticket tracker, a chat message, a schedule, or an HTTP call, so the platform fills much of the orchestrator; its transcript view fills the observability platform. Cost is folded into a seat or subscription, or charged per run.
+A hosted coding agent with its runner included: the vendor provisions a fresh VM or container per run, runs its own agent loop there, and pushes a branch or PR. Only the branch survives. Runs start from an @-mention or assignment in the git host or issue tracker, a chat message, a schedule, or an HTTP call, so the platform fills much of the orchestrator; its transcript view fills the observability platform. Cost is folded into a seat or subscription, or charged per run.
 
-**Pick it when** the user wants the fewest moving parts and is happy with that vendor's agent. Confirm its triggers cover the user's ticket tracker.
+**Pick it when** the user wants the fewest moving parts and is happy with that vendor's agent. Confirm its triggers cover the user's issue tracker.
 
 Starting points:
 - [Claude Code cloud](https://code.claude.com/docs/en/claude-code-on-the-web), with [scheduled tasks](https://code.claude.com/docs/en/routines) for cron, API and GitHub event triggers.
@@ -88,7 +88,7 @@ Check each candidate against these, with the factory's runs in hand:
 - **Prices and free allowances.** As of 2026-10, GitHub had announced a per-minute fee for self-hosted runners, then postponed it.
 - **Beta, preview and early-access status**, and which plans unlock a feature. As of 2026-10, Claude Managed Agents and Claude Code self-hosted environments were both in beta.
 - **Default timeouts and max run length** per tier.
-- **Trigger integrations** on bundled platforms: which ticket trackers and chat tools start a run.
+- **Trigger integrations** on bundled platforms: which issue trackers and chat tools start a run.
 - **Startup times**, which are vendor claims; measure them if they matter.
 
 The type traits above (who owns the loop, who owns the machine, which slots it fills) change slowly; trust them over any number here.

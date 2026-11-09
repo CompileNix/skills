@@ -22,7 +22,7 @@ Reach for it when git has already stopped on conflicts it could not resolve itse
 
 The skill exists to prevent resolving by flag: `--ours`, `--theirs`, or hand-deleting whichever block looks less important, so the markers go away and the build compiles. That resolution can be syntactically perfect and still silently drop a change somebody made on purpose.
 
-You cannot preserve an intent you have not read. So the work starts in the history (commits, PRs, [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket)) and only then moves to the diff. The check step exists for the same reason. The skill finds the repo's own [automated checks](https://www.aihero.dev/ai-coding-dictionary/automated-check) and runs them before committing, because a merge is the easiest place in git to produce code that satisfies both branches and passes neither's tests.
+You cannot preserve an intent you have not read. So the work starts in the history (commits, PRs, [issues](https://www.aihero.dev/ai-coding-dictionary/issue)) and only then moves to the diff. The check step exists for the same reason. The skill finds the repo's own [automated checks](https://www.aihero.dev/ai-coding-dictionary/automated-check) and runs them before committing, because a merge is the easiest place in git to produce code that satisfies both branches and passes neither's tests.
 
 ## Common questions
 
@@ -34,7 +34,7 @@ The added value is the "find the primary sources" and "run feedback loops" steps
 
 Mostly no. Zoning files off between parallel tasks costs more than it saves, because agents are good enough at merge conflicts that the tradeoff is not as harsh as it looks. The one piece of discipline worth keeping is to do large refactors first. A large rename landing after ten branches have forked off it is the case that stays expensive.
 
-One caveat from a user report on parallel worktrees: when sibling [sessions](https://www.aihero.dev/ai-coding-dictionary/session) each build a ticket in their own tree, the merge back is best done by the session that wrote the change, because it is the one that already knows the intent. If one agent resolves everybody's conflicts at the end, it loses the [context](https://www.aihero.dev/ai-coding-dictionary/context) that step 2 of this skill must then rebuild.
+One caveat from a user report on parallel worktrees: when sibling [sessions](https://www.aihero.dev/ai-coding-dictionary/session) each build an issue in their own tree, the merge back is best done by the session that wrote the change, because it is the one that already knows the intent. If one agent resolves everybody's conflicts at the end, it loses the [context](https://www.aihero.dev/ai-coding-dictionary/context) that step 2 of this skill must then rebuild.
 
 **Why never `--abort`?**
 
@@ -50,4 +50,4 @@ Aborting throws away the resolution work and returns you to the same conflict, u
 
 ## Where it fits
 
-A reach-for-it-anytime standalone with no dependencies on any other skill: it starts when git stalls and ends when the tree is clean and committed. Its only real neighbour is [diagnosing-bugs](https://aihero.dev/skills-diagnosing-bugs), which takes over at the point where a merge resolved cleanly but the merged code misbehaves: a diagnosis problem, not a conflict one. It is outside the main idea-to-ship flow, so [ask-matt](https://aihero.dev/skills-ask-matt) is the map for what runs before and after it.
+A reach-for-it-anytime standalone with no dependencies on any other skill: it starts when git stalls and ends when the tree is clean and committed. Its only real neighbour is [diagnosing-bugs](https://aihero.dev/skills-diagnosing-bugs), which takes over at the point where a merge resolved cleanly but the merged code misbehaves: a diagnosis problem, not a conflict one. It is outside the main idea-to-ship flow, so [which-skill](https://aihero.dev/skills-which-skill) is the map for what runs before and after it.

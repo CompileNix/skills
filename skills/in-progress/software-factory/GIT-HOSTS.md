@@ -6,7 +6,7 @@
 
 ### All-in-one platforms
 
-The git host bundled with a ticket tracker, a CI system that serves as orchestrator, and hosted runners, all sharing one event stream and one permission model. One product fills git host, ticket tracker, orchestrator and runner, and its CI run pages often cover the observability platform too. Every PR, review, label and check event is both a webhook and a native trigger, so this type has the richest trigger catalogue.
+The git host bundled with an issue tracker, a CI system that serves as orchestrator, and hosted runners, all sharing one event stream and one permission model. One product fills git host, issue tracker, orchestrator and runner, and its CI run pages often cover the observability platform too. Every PR, review, label and check event is both a webhook and a native trigger, so this type has the richest trigger catalogue.
 
 **Pick it when** the factory starts small, the code already lives there, or the user wants one bill and one login. This is the "All on GitHub" design in [SKILL.md](SKILL.md). The vendors also ship their own agents, which either compete with the user's runs or slot in as one of them.
 
@@ -15,7 +15,7 @@ The git host bundled with a ticket tracker, a CI system that serves as orchestra
 
 ### Suite git hosts
 
-A git host sold as one module of a wider suite, where the ticket tracker is a sibling product (Jira, Azure Boards) joined by links and webhooks. Tracker events arrive on a second stream, so the orchestrator joins two event sources.
+A git host sold as one module of a wider suite, where the issue tracker is a sibling product (Jira, Azure Boards) joined by links and webhooks. Tracker events arrive on a second stream, so the orchestrator joins two event sources.
 
 **Pick it when** the organisation already runs the suite and its humans live in Jira or Azure Boards. The factory inherits that tracker as its human interface.
 
@@ -55,7 +55,7 @@ New git hosts built around agents as the main authors: high commit throughput, s
 
 Headless, API-first git repositories created by the thousand: branches, commits and diffs, with no PRs, reviews or gates. They fill half the slot, with short-lived per-repository tokens minted per run.
 
-**Pick it when** runs need cheap per-run scratch repositories or forks (a fork per ticket, an agent's working state) and the PR still lands on a full git host from the types above.
+**Pick it when** runs need cheap per-run scratch repositories or forks (a fork per issue, an agent's working state) and the PR still lands on a full git host from the types above.
 
 - [Cloudflare Artifacts](https://www.cloudflare.com/product/artifacts/): git-compatible storage on Workers; fork a baseline per task.
 - [Pierre code.storage](https://code.storage/docs): white-label git API with ephemeral branches.
@@ -68,7 +68,7 @@ Check each candidate against these questions:
 2. **Identity**: can a run act as a dedicated bot or app identity? That keeps runs attributable, lets an automated review run approve a PR another identity authored, and decides whether a run's own pushes trigger the next run.
 3. **Gates**: are required checks, required approvals and branch protection available on the user's plan and repository visibility, and can a bot sit on a bypass list?
 4. **Rate limits**: what API budget does every run on every runner share, per what unit (installation, token, user, workspace), and how does it scale?
-5. **Slots filled**: which of ticket tracker, orchestrator, runner and observability platform does the same product cover?
+5. **Slots filled**: which of issue tracker, orchestrator, runner and observability platform does the same product cover?
 
 Find the answers in primary sources: the REST API and webhook reference, the rate-limit page, the pricing and plan comparison page, the access-token or app docs, and the changelog or release notes.
 
@@ -81,4 +81,4 @@ Verify each still holds before the design relies on it.
 - **GitHub `GITHUB_TOKEN` ends chains.** Events caused by the built-in Actions token start no new workflow runs (except `workflow_dispatch` and `repository_dispatch`), so a run pushing with it silently stops the next run. Give runs a GitHub App identity from day one.
 - **Gates often sit behind a paid plan.** As of 2026-10, GitHub rulesets on private repositories need Pro, Team or Enterprise, GitLab approval rules need Premium, and enforced Bitbucket merge checks need Premium.
 - **Rate limits are per identity, and the bot's type changes them.** As of 2026-10, a GitHub App installation gets 5,000 requests/hour against 1,000 for `GITHUB_TOKEN`; Bitbucket user tokens stay at the base rate while access tokens scale; Azure DevOps raises a bot's budget with its access level.
-- **Suite trackers mean two event streams.** The orchestrator joins git host and ticket tracker events itself.
+- **Suite trackers mean two event streams.** The orchestrator joins git host and issue tracker events itself.

@@ -2,7 +2,7 @@
 
 > Surveyed 2026-10, and not guaranteed to be up to date. Use it to get oriented, then research the current options yourself: products, prices, limits and betas change fast.
 
-Orientation for filling the observability platform slot, or deciding on a deliberate none. The types split by **what the human needs to see inside a run**: its log, its agent trace (each model call and tool call as a span), or that trace joined to the rest of the user's system. Self-hosted vs SaaS cuts across the last three types. When a run should act on what the platform sees, make the platform a ticket source: a monitor files the ticket, and a run reads it.
+Orientation for filling the observability platform slot, or deciding on a deliberate none. The types split by **what the human needs to see inside a run**: its log, its agent trace (each model call and tool call as a span), or that trace joined to the rest of the user's system. Self-hosted vs SaaS cuts across the last three types. When a run should act on what the platform sees, make the platform an issue source: a monitor files the issue, and a run reads it.
 
 ## How runners hook in
 
@@ -42,7 +42,7 @@ OpenTelemetry is the common wire: harness OTel and platform push land in any OTL
 
 **What it is**: the user's existing observability stack (logs, metrics, distributed traces for every service), with an agent or LLM view added.
 
-**When a factory picks it**: the team already pays for one; runs need joining to the app's own traces (the Agent SDK propagates `TRACEPARENT`, so a run nests inside its caller's trace); or a monitor ticket source already reads from it.
+**When a factory picks it**: the team already pays for one; runs need joining to the app's own traces (the Agent SDK propagates `TRACEPARENT`, so a run nests inside its caller's trace); or a monitor issue source already reads from it.
 
 **Traits of the type**: harness OTel goes straight to the vendor's OTLP endpoint. Priced per GB, event or host, so a factory's volume is a rounding error on an existing bill and a surprise on a new one.
 

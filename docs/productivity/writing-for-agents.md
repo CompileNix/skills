@@ -10,7 +10,7 @@ It was called `writing-great-skills` until v1.1. The new name fits what it alway
 
 Type `/writing-for-agents`, or the agent reaches for it on its own when you're creating or editing a skill, or modifying `AGENTS.md` or `CLAUDE.md`.
 
-Reach for it by hand for everything else an agent reads: your docs, specs and [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket), system and [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) prompts. The test is one question: does an agent read this? It does not matter how the agent gets the document: a pointer names it, a human pastes it, or it is in the repo. To find out what a codebase contains, use [grill-with-docs](https://aihero.dev/skills-grill-with-docs). This reference controls how a document reads, not what it knows.
+Reach for it by hand for everything else an agent reads: your docs, specs and [issues](https://www.aihero.dev/ai-coding-dictionary/issue), system and [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) prompts. The test is one question: does an agent read this? It does not matter how the agent gets the document: a pointer names it, a human pastes it, or it is in the repo. To find out what a codebase contains, use [grill-with-docs](https://aihero.dev/skills-grill-with-docs). This reference controls how a document reads, not what it knows.
 
 ## The two loads
 
@@ -32,7 +32,7 @@ Once you think in these two loads, most authoring decisions (split or don't, inl
 ## Common questions
 
 **Where did `/writing-great-skills` go?**
-It is this skill, renamed in v1.1. Users pointed it at `AGENTS.md`, docs, specs, tickets and runtime prompts long before the rename. Structure, leading words and pruning apply to any text an agent reads. There is no alias. Reinstall under the new name.
+It is this skill, renamed in v1.1. Users pointed it at `AGENTS.md`, docs, specs, issues and runtime prompts long before the rename. Structure, leading words and pruning apply to any text an agent reads. There is no alias. Reinstall under the new name.
 
 **"Writing for agents": so the agent does the writing?**
 The other way round. You are the author; the agent is the reader. That is what makes it hard. You write for a reader that has already read everything, so explanation is waste and precision is the whole job.
@@ -67,4 +67,4 @@ No. Finding the word that packs the most behaviour into the fewest [tokens](http
 
 ## Where it fits
 
-This is a reach-for-it-anytime standalone reference. It applies to the whole set, not to one skill. Every skill here was written with it, and it also covers the documents the other skills produce (a `GLOSSARY.md` and its ADRs, a spec, a ticket) once an agent has to read them. Its one direct caller is [retro](https://aihero.dev/skills-retro), which loads it before proposing any steering file or skill. When you're unsure which skill or flow fits a task, [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+This is a reach-for-it-anytime standalone reference. It applies to the whole set, not to one skill. Every skill here was written with it, and it also covers the documents the other skills produce (a `GLOSSARY.md` and its ADRs, a spec, an issue) once an agent has to read them. Its one direct caller is [retro](https://aihero.dev/skills-retro), which loads it before proposing any steering file or skill. When you're unsure which skill or flow fits a task, [which-skill](https://aihero.dev/skills-which-skill) routes you over the whole set.

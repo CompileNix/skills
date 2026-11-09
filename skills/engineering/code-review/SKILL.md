@@ -14,7 +14,7 @@ A third axis joins them when the repo advertises a visual-capture hook (step 4):
 
 The axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start every sub-agent with a fresh context window.
 
-The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
+The issue tracker should have been provided to you. If not, tell the user to run `/setup-skills`.
 
 ## Process
 

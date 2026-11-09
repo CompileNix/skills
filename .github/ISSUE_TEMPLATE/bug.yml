@@ -12,7 +12,7 @@ body:
     id: skill
     attributes:
       label: Skill
-      description: Which skill, e.g. `to-tickets`, `grilling`.
+      description: Which skill, e.g. `to-issue`, `grilling`.
     validations:
       required: true
   - type: input
