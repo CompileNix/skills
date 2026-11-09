@@ -21,7 +21,9 @@ Format a round like so:
 ➡️ <your recommended answer>
 ```
 
-Word each question so "yes" accepts your recommended answer.
+In the written round, word each question so "yes" accepts your recommended answer.
+
+After the written round, put it to the user through your harness's question tool, if it has one, so they have an easy, interactive way to answer: one question per decision, each understandable without the written round, with your recommended answer as the first option. Where the tool limits the questions per call, split the round across calls. With no question tool, the written round stands alone.
 
 Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 
