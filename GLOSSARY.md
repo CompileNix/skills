@@ -1,4 +1,4 @@
-# Matt Pocock Skills
+# CompileNix Skills
 
 A collection of agent skills (slash commands and behaviors) loaded by Claude Code. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-skills`.
 
@@ -28,3 +28,4 @@ A canonical state-machine label applied to an **Issue** during triage (e.g. `nee
 
 - "backlog" was previously used to mean both the *tool* hosting issues and the *body of work* inside it. Resolved: the tool is the **Issue tracker**; "backlog" is no longer used as a domain term.
 - "backlog backend" / "backlog manager". Resolved: collapsed into **Issue tracker**.
+- "ticket" and "issue" were both used for a tracked unit of work. Resolved: **Issue**.
