@@ -11,7 +11,7 @@ These split on one axis: who can invoke them. **User-invoked** skills are reacha
 
 ### Engineering
 
-Skills I use daily for code work.
+Skills for daily code work.
 
 **User-invoked**
 
