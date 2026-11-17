@@ -24,4 +24,9 @@ Every skill that dispatches a subagent says to start it with a fresh context win
 
 Every new commit message follows [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/): `<type>[(scope)][!]: <description>`, using a type from `TYPES` in [.githooks/commit-msg](./.githooks/commit-msg), which enforces this. Fix a rejected message rather than bypassing the hook with `--no-verify`. Commits from before this rule stay as they are.
 
-[`.agents/wiki/`](./.agents/wiki/index.md) is this repo's shared wiki, the memory `chief-of-staff` keeps across sessions. It is a dated historical record, not a description of the present: add a new dated claim and mark the old one superseded, never rewrite an old claim to match today's code. Its pages follow this repo's prose rules, the no-em-dash rule included. Run `python3 .agents/wiki/lint.py` before every commit that touches it; it exits non-zero on a mechanical failure.
+[`.agents/wiki/`](./.agents/wiki/index.md) is this repo's wiki parent for `chief-of-staff`: one goal wiki per goal at `.agents/wiki/<YYYY-MM-DD>-<goal-slug>/`, listed one line each in the registry `.agents/wiki/index.md`. It is a dated historical record, not a description of the present: add a new dated claim and mark the old one superseded, never rewrite an old claim to match today's code, and cite code claims as `CompileNix/skills@<sha>`. Its pages follow this repo's prose rules, the no-em-dash rule included. Run `python3 .agents/wiki/lint.py` before every commit that touches it; it exits non-zero on a mechanical failure.
+
+Two facts about running subagents on this repo, promoted from that wiki on 2026-11-18:
+
+- A harness may load skills from the main checkout or a global skills folder rather than from the active worktree. A subagent that must follow a skill as changed on your branch gets that version only if you hand it the worktree path of its `SKILL.md`.
+- T3 delegate tasks with worktree isolation run in linked git worktrees of this repository, so a local branch made in one worktree is visible by name in every other, with no push or fetch.

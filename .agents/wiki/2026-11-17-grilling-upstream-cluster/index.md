@@ -1,8 +1,13 @@
-# Wiki index
+# 2026-11-17: grilling upstream cluster
 
-Shared memory for long-running work on this repo, kept by `chief-of-staff`. Every page is listed here with a link and a one-line summary, grouped by category.
+Validate the `chief-of-staff` skill on a real goal: fix the six upstream issues about `grilling` (mattpocock/skills #1401, #1402, #1406, #1411, #1424, #1430) in this fork through one full to-spec, to-issue, implement-spec and retro cycle, run on OpenCode with Qwen 3.8 27B, and fold every chief-of-staff failure it surfaces back into the skill.
 
-## Work in progress
+## Status
+
+- 2026-11-17: active
+- 2026-11-17: done
+
+## Work
 
 - [grilling-upstream-cluster.md](grilling-upstream-cluster.md): the six-issue upstream grilling fix, its per-issue disposition, the work layout, the outcome, and environment facts found while running it.
 
