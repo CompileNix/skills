@@ -2,7 +2,7 @@
 
 ## What it does
 
-`chief-of-staff` turns one long [session](../ai-coding-terms.md#session) into a coordinator for a long-running goal. The [agent](../ai-coding-terms.md#agent) becomes the goal's Directly Responsible Individual: it hands every piece of work to a [subagent](../ai-coding-terms.md#subagent), keeps what it learns in a wiki, and runs the main flow's skills (spec, issues, build, retro) as procedures without you typing each one.
+`chief-of-staff` turns one long [session](../ai-coding-terms.md#session) into a coordinator for a long-running goal. The [agent](../ai-coding-terms.md#agent) becomes the goal's Directly Responsible Individual: it hands every piece of work to a [subagent](../ai-coding-terms.md#subagent), keeps what it learns in a dated, commit-cited wiki of its own for the goal, and runs the main flow's skills (spec, issues, build, retro) as procedures without you typing each one.
 
 The coordinator does no work itself. Everything goes to subagents, and its memory lives in the wiki rather than in its [context window](../ai-coding-terms.md#context-window), so the session can run for hours and survive [compaction](../ai-coding-terms.md#compaction) with its judgement intact.
 
@@ -19,7 +19,7 @@ You invoke this by typing `/chief-of-staff`, and the agent won't reach for it on
 
 ## Prerequisites
 
-- **A wiki to write into.** It looks for a shared wiki first and follows its conventions; this repo keeps one at `.agents/wiki/`. With none, it agrees a location with you before the first write.
+- **A wiki parent to write into.** It looks for an existing one first and follows its conventions; this repo keeps one at `.agents/wiki/`. With none, it agrees a location with you before the first write.
 - **A [harness](../ai-coding-terms.md#harness) that runs subagents in the background.** Without them the coordinator blocks on every task and the session stops being a dialogue.
 - **The procedures it follows.** It reads `retro`, `to-spec`, `to-issue` and `implement-spec` from beside its own folder, so install them alongside it. The [orchestrator rule](../../.agents/invocation.md#orchestrators) explains why a user-invoked skill may follow them.
 
@@ -34,7 +34,16 @@ The strategic track is what separates it from [implement-spec](implement-spec.md
 
 ## The wiki
 
-The wiki is the coordinator's long-term memory, a folder of interlinked pages with an `index.md`. It is a **historical record**: every claim is dated, claims about code cite the commit they were true at, and a changed fact gets a new dated claim beside the superseded one. Subagents talk to the coordinator through [context pointers](../ai-coding-terms.md#context-pointer) (wiki pages, commits, research notes) instead of pasted summaries, so both sides keep their windows small.
+The wiki is the coordinator's long-term memory, and each goal gets **its own wiki**: a folder named by its start date, `<YYYY-MM-DD>-<goal-slug>/`, under one wiki parent whose `index.md` is a registry with one line per goal. A goal's own `index.md` opens with the goal and a dated status log (`active`, `paused`, `done`, `abandoned`), so a session months later sees at a glance which goals are live and asks you which to resume.
+
+| Situation | What happens |
+| --- | --- |
+| Two goals at once | Two coordinators, two goal wikis; each writes only its own folder and its own registry line |
+| The same goal from two sessions | One coordinator per goal; the second effort becomes a goal of its own that reads the first |
+| A later goal needs an earlier one's lessons | It reads and cites the earlier goal wiki; it never writes there |
+| A fact every goal needs | It is promoted out of the wiki into the environment (`AGENTS.md`, docs, a script) |
+
+It is a **historical record**: every claim is dated, every claim about code cites `<repo>@<sha>`, and a changed fact gets a new dated claim beside the superseded one. A lint script at the wiki parent checks the mechanical part (orphans, broken links, undated pages, bare commit hashes, a registry status out of step with its goal) before every wiki commit. Subagents talk to the coordinator through [context pointers](../ai-coding-terms.md#context-pointer) (wiki pages, commits, research notes) instead of pasted summaries, so both sides keep their windows small.
 
 ## Common questions
 
@@ -46,7 +55,11 @@ The children's completion reports land in the coordinator's session, not in the 
 
 A blocking question with nothing to decide parks the whole session on you. The skill reserves questions for real forks and reports status as plain text. A checkpoint question that offers "proceed as written" first is the failure.
 
-**Why does it write a lint script for its own wiki?**
+**Can I run two chief-of-staff sessions at once?**
+
+Yes, on different goals: each gets its own goal wiki, and the only file they share is the registry, where each edits only its own line. Two sessions on the same goal is the case to avoid; split the second one into a goal of its own, which can read the first.
+
+**Why does it write a lint script for the wiki?**
 
 Orphan pages, broken links, pages missing from the index and undated claims are mechanical, so a script checks them and fails before a bad wiki commit. The coordinator keeps only the judgement checks: contradictions between pages, and claims a newer source has overtaken.
 
@@ -57,7 +70,7 @@ A local tracker under `.scratch/` is untracked, so it stays in the coordinator's
 ## It's working if
 
 - The coordinator's own trace is mostly dispatches and short reports, with little file reading or editing of its own.
-- The wiki grows with dated pages, and `index.md` lists every one of them.
+- Each goal wiki grows with dated pages and commit-cited claims, its `index.md` lists every one, and the registry shows each goal's status.
 - Changes to the environment (a lint rule, a hook, a coding standard) land alongside the feature work, not as a someday list.
 - You get status as plain text and questions only when there is a real choice to make.
 
