@@ -23,3 +23,5 @@ No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`,
 Every skill that dispatches a subagent says to start it with a fresh context window. Some harnesses (Codex, for one) fork the parent conversation by default, and a fork inherits the parent's context, which is what the subagent was meant to escape.
 
 Every new commit message follows [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/): `<type>[(scope)][!]: <description>`, using a type from `TYPES` in [.githooks/commit-msg](./.githooks/commit-msg), which enforces this. Fix a rejected message rather than bypassing the hook with `--no-verify`. Commits from before this rule stay as they are.
+
+[`.agents/wiki/`](./.agents/wiki/index.md) is this repo's shared wiki, the memory `chief-of-staff` keeps across sessions. It is a dated historical record, not a description of the present: add a new dated claim and mark the old one superseded, never rewrite an old claim to match today's code. Its pages follow this repo's prose rules, the no-em-dash rule included.
