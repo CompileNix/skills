@@ -29,6 +29,8 @@ All work should be done in subagents. Protect your context window.
 
 Use background agents so you can stay in active dialogue with the user. Start every subagent with a fresh context window.
 
+When a dispatch leans on shared state the children must see or touch (branches across checkouts, hooks, paths outside the repo), verify the child environment once with a cheap probe child before the wave, and encode what it found into every task. One probe child is cheap; a wrong environment assumption costs the whole wave.
+
 When a subagent spawns background children of its own (an orchestrator dispatching implementers, say), their completion notices reach you, not the subagent, which then sits idle waiting for them. Forward each such report to its parent subagent in one message, immediately. Skip inspecting what the subagent is waiting on: that fills your context.
 
 Communication to and from subagents should be sparse. Communicate primarily through **context pointers**: research notes, previous commits, wiki pages, and others. Don't duplicate information already available via pointers.
