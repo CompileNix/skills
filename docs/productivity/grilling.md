@@ -26,9 +26,9 @@ The skill rests on three ideas.
 
 The **design tree** is the model of the subject: decisions with decisions hanging off them. The **frontier** is the set of decisions whose prerequisites are all settled: the only questions the agent can ask yet. A **round** is one frontier, asked in full and answered in full.
 
-Inside a round, every question has a fixed format: numbered and titled behind a `❓`, then the body, then the agent's recommended answer alone on a `➡️` line. This format lets you answer a round by number ("1 yes, 2 the second option, 3 no, here's why") instead of by quoting questions back. The format has one known problem. The recommendation sometimes argues *against* the question as it was worded, so agreeing with the recommendation means answering "no" to the question. When that happens, answer the recommendation and say so.
+Inside a round, every question has a fixed format: numbered and titled behind a `❓`, then the body, then two or more lettered options, then the agent's pick and its reason alone on a `➡️` line. Option A is always the recommendation. The options are **diverging**: each one is a distinct path you could defend, not "Yes" next to a reworded "Yes, but…", and a decision with only two outcomes names both ("Keep X" / "Drop X") instead of asking yes or no. There is no fixed number of options; a question gets as many as the decision really has. You answer a round by number and letter ("1A, 2C, 3B because …") instead of by quoting questions back, and a bare "yes" accepts every recommendation in the round.
 
-After the written round, if your [harness](../ai-coding-terms.md#harness) has a question tool, the agent also puts the round to you there, so you can pick answers instead of typing them. The written round keeps the reasoning, and each question in the dialog makes sense without it, with the recommendation as the first option. A round larger than the tool allows is split across calls. With no question tool, you answer the written round by number.
+After the written round, if your [harness](../ai-coding-terms.md#harness) has a question tool, the agent also puts the round to you there, so you can pick answers instead of typing them. The written round keeps the reasoning. Each question in the dialog makes sense without it and offers the same options in the same order, with A first and labelled "(Recommended)". Where the tool allows fewer options than a question has, the dialog shows A and the strongest alternatives, and you pick any other by typing its letter. A round larger than the tool allows is split across calls. With no question tool, you answer the written round by number and letter.
 
 The other half of the design is the split between facts and decisions. Facts are the skill's own job. When a frontier question needs something the [environment](../ai-coding-terms.md#environment) can settle, the agent dispatches a [sub-agent](../ai-coding-terms.md#subagent) to find out rather than asking you. The round does not wait for that research; only the questions that depend on it wait. Decisions are yours, and the agent must wait for them. An agent running `grilling` that answers its own decisions has broken the skill. The session ends when the frontier is empty. The agent then waits for you to confirm a shared understanding before it acts on what you agreed.
 
@@ -40,7 +40,7 @@ This page covers the mechanism. The wrapper skills' pages cover how each one use
 
 | Question | Where it is answered |
 | --- | --- |
-| The tree, the frontier, rounds, the question format, facts vs decisions | Here |
+| The tree, the frontier, rounds, the question format and its options, facts vs decisions | Here |
 | How long a session should run, what to do with a question you can't answer by talking, how to avoid nodding along | [grill-me](grill-me.md) |
 | What gets written to `GLOSSARY.md`, what becomes an ADR | [grill-with-docs](../engineering/grill-with-docs.md) |
 
@@ -54,7 +54,8 @@ No, and a cap is out of scope on purpose. Some plans need three questions and so
 
 ## It's working if
 
-- A round arrives as a numbered list, each question with its recommendation on a separate `➡️` line, and you can answer the whole round by number or, where your harness has a question tool, by picking options in the dialog that follows.
+- A round arrives as a numbered list, each question with lettered options and its recommendation on a separate `➡️` line, and you can answer the whole round by number and letter or, where your harness has a question tool, by picking options in the dialog that follows.
+- Every question offers at least two real alternatives; none is a lone "Yes" waiting for a nod.
 - Nothing in a round needs another question in the same round answered first.
 - Later rounds ask things the first round could not have asked.
 - It goes and looks facts up (reading files, dispatching a sub-agent) rather than asking you something it could have found out.
