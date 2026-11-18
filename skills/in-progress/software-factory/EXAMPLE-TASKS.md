@@ -6,7 +6,7 @@ Tasks grouped by the problem they solve. Each names the trigger that starts its 
 
 **Explore task**
 - Trigger: an issue is created, or a human labels it.
-- Does: checks the issue against the codebase and sorts it into a category (easy call, needs a human, not a bug).
+- Does: checks the issue's claims against the codebase, reproducing them where it can, sorts it into a category (easy call, needs a human, not a bug), and leaves its findings on the issue for the implementer. It never pushes.
 - Triggers: an implementer run for easy calls. Anything else ends with the issue labelled as waiting for a human.
 
 ## Ready issues wait for someone to build them
