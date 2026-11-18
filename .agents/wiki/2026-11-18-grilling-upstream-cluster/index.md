@@ -7,6 +7,7 @@ Resolve, in this fork, the cluster of upstream issues about the `grilling` skill
 ## Status
 
 - 2026-11-18: active
+- 2026-11-18: done
 
 ## Pages
 
@@ -23,3 +24,7 @@ Resolve, in this fork, the cluster of upstream issues about the `grilling` skill
 ### Chief-of-staff failures
 
 - [cos-failure-worktree-lifecycle.md](cos-failure-worktree-lifecycle.md): A child's worktree outlives the child and keeps holding its branch checkout; fixed in the skill.
+
+### Retro
+
+- [retro-merger-04.md](retro-merger-04.md): Candidates and decisions from the one session that failed; one pursued.
