@@ -29,7 +29,7 @@ All work should be done in subagents. Protect your context window.
 
 Use background agents so you can stay in active dialogue with the user. Start every subagent with a fresh context window.
 
-When a dispatch leans on shared state the children must see or touch (branches across checkouts, hooks, paths outside the repo), verify the child environment once with a cheap probe child before the wave, and encode what it found into every task. One probe child is cheap; a wrong environment assumption costs the whole wave.
+When a dispatch leans on shared state the children must see or touch (branches across checkouts, hooks, paths outside the repo), verify the child environment once with a cheap probe child before the wave, and encode what it found into every task. One probe child is cheap; a wrong environment assumption costs the whole wave. A probe finding holds at probe time only: encode the stable ones as claims, but put state that can move between probe and work (which branch is checked out where, what a tip was) in the tasks as a check the child runs first, with a stop-and-report if it differs.
 
 A child's worktree outlives the child, still holding the branch it had checked out: the branch shows in `git branch`, but no other worktree can check it out until that worktree is gone. Before dispatching a child that must check out a branch a finished child still holds, remove the finished child's worktree yourself; the next child only discovers the blockage at its first checkout.
 
