@@ -19,3 +19,7 @@ Resolve, in this fork, the cluster of upstream issues about the `grilling` skill
 
 - [mainline-base.md](mainline-base.md): The fork mainline already carries the diverging options format, so the integration branch bases on `main`.
 - [run-log.md](run-log.md): The spec, the issues, the branches, and the commits as they land.
+
+### Chief-of-staff failures
+
+- [cos-failure-worktree-lifecycle.md](cos-failure-worktree-lifecycle.md): A child's worktree outlives the child and keeps holding its branch checkout; fixed in the skill.
