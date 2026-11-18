@@ -67,6 +67,10 @@ Orphan pages, broken links, pages missing from the index and undated claims are 
 
 A local tracker under `.scratch/` is untracked, so it stays in the coordinator's checkout and never reaches a subagent's worktree. Hand subagents absolute paths to the spec and issues. More generally, when a dispatch leans on shared state (branches across checkouts, hooks, paths outside the repo), the skill sends one cheap probe subagent to check the environment before the whole wave goes out.
 
+**A later subagent fails to check out a branch: "already used by worktree".**
+
+A finished subagent's worktree outlives it and still holds the branch it had checked out, so the next subagent that needs that branch, typically the next merger on the integration branch, can't check it out. The skill has the coordinator remove the finished worktree before that dispatch. For the same reason, anything a probe found about state that can move (which branch is checked out where, what a tip was) goes into each task as a check the subagent runs first, stopping to report if it differs, not as a fact.
+
 ## It's working if
 
 - The coordinator's own trace is mostly dispatches and short reports, with little file reading or editing of its own.
