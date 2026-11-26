@@ -2,9 +2,9 @@
 
 ## What it does
 
-`chief-of-staff` turns one long [session](../ai-coding-terms.md#session) into a coordinator for a long-running goal. The [agent](../ai-coding-terms.md#agent) becomes the goal's Directly Responsible Individual: it hands every piece of work to a [subagent](../ai-coding-terms.md#subagent), keeps what it learns in a dated, commit-cited wiki of its own for the goal, and runs the main flow's skills (spec, issues, build, retro) as procedures without you typing each one.
+`chief-of-staff` turns one long [session](../ai-coding-terms.md#session) into a coordinator for a long-running goal. The [agent](../ai-coding-terms.md#agent) has two jobs: **delegate** every piece of work to a [subagent](../ai-coding-terms.md#subagent), and **remember** what each one taught it in a dated, commit-cited wiki of its own for the goal. It runs the main flow's skills (spec, issues, build, retro) as procedures without you typing each one.
 
-The coordinator does no work itself. Everything goes to subagents, and its memory lives in the wiki rather than in its [context window](../ai-coding-terms.md#context-window), so the session can run for hours and survive [compaction](../ai-coding-terms.md#compaction) with its judgement intact.
+The coordinator does no work itself, but the conversation stays with it: questions, interviews and check-ins come from this session, never from a subagent. Its memory lives in the wiki rather than in its [context window](../ai-coding-terms.md#context-window), so the session can run for hours and survive [compaction](../ai-coding-terms.md#compaction) with its judgement intact.
 
 ## When to reach for it
 
@@ -12,7 +12,7 @@ You invoke this by typing `/chief-of-staff`, and the agent won't reach for it on
 
 | Your situation | Reach for |
 | --- | --- |
-| A goal that spans many tasks and hours, where you want one session steering and improving the [environment](../ai-coding-terms.md#environment) as it goes | `/chief-of-staff` |
+| A goal that spans many tasks and hours, where you want one session steering the work and offering fixes to the [environment](../ai-coding-terms.md#environment) when a task hits friction | `/chief-of-staff` |
 | One spec, already split into issues, to land in one run | [implement-spec](implement-spec.md) |
 | An effort so foggy you can't yet name the tasks | [wayfinder](wayfinder.md) |
 | A single feature you can hold in one session | the main flow, from [grill-with-docs](grill-with-docs.md) |
@@ -23,14 +23,19 @@ You invoke this by typing `/chief-of-staff`, and the agent won't reach for it on
 - **A [harness](../ai-coding-terms.md#harness) that runs subagents in the background.** Without them the coordinator blocks on every task and the session stops being a dialogue.
 - **The procedures it follows.** It reads `retro`, `to-spec`, `to-issue` and `implement-spec` from beside its own folder, so install them alongside it. The [orchestrator rule](../../.agents/invocation.md#orchestrators) explains why a user-invoked skill may follow them.
 
-## Two tracks
+## Delegate and remember
 
-The leading idea is **two tracks**, held at once on every task:
+The leading idea is **delegate and remember**. Each task goes to a fresh subagent briefed with pointers, the goal, what is already ruled out and the scope; its report comes back to you outcome-first, with anything you must decide up front. What the task taught goes into the wiki before the next one starts.
 
-- **Tactical**: finish the task in front of you.
-- **Strategic**: change the environment so the *next* task goes better. That means constrained APIs, lint rules that force correctness, coding standards a reviewer can enforce, logs and test data the agents can reach, and a "no workarounds" rule.
+## After friction
 
-The strategic track is what separates it from [implement-spec](implement-spec.md): every user message is a prompt to look for an environment fix, and retros on about one in five subagent sessions feed the hunt.
+When a task hit **friction** (a workaround, a retry, a blocked step), the coordinator asks what would have made it easier, and offers you the environment change that answer points to:
+
+- **Constrained interfaces**: narrow APIs, lint rules that force correctness, coding standards a reviewer can enforce.
+- **Data sources**: logs from running processes, a test database, a browser.
+- **Causes, not workarounds**: fix the broken convention a subagent had to work around, before the next feature.
+
+Every change to the setup starts as an offer and lands only once you accept. Retros on about one in five subagent sessions feed the same offers, which is what separates it from [implement-spec](implement-spec.md).
 
 ## The wiki
 
@@ -75,9 +80,9 @@ A finished subagent's worktree outlives it and still holds the branch it had che
 
 - The coordinator's own trace is mostly dispatches and short reports, with little file reading or editing of its own.
 - Each goal wiki grows with dated pages and commit-cited claims, its `index.md` lists every one, and the registry shows each goal's status.
-- Changes to the environment (a lint rule, a hook, a coding standard) land alongside the feature work, not as a someday list.
+- After a task hits friction you get an offer for an environment change (a lint rule, a hook, a coding standard), and the ones you accept land alongside the feature work.
 - You get status as plain text and questions only when there is a real choice to make.
 
 ## Where it fits
 
-`chief-of-staff` sits **above the main flow** and runs it for you across many tasks: `to-spec → to-issue → implement-spec → retro`, over and over, toward one goal. Its neighbours are [implement-spec](implement-spec.md), the single-spec build it dispatches, and [retro](retro.md), which feeds its strategic track. [which-skill](which-skill.md) is the router over the whole set.
+`chief-of-staff` sits **above the main flow** and runs it for you across many tasks: `to-spec → to-issue → implement-spec → retro`, over and over, toward one goal. Its neighbours are [implement-spec](implement-spec.md), the single-spec build it dispatches, and [retro](retro.md), which feeds its friction offers. [which-skill](which-skill.md) is the router over the whole set.

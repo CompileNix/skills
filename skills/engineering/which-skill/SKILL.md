@@ -57,7 +57,7 @@ A starting situation that generates work, then merges onto the main flow.
 
 Not one feature, but a goal that spans many of them and hours of work.
 
-- **A goal to pursue across many tasks, steered from one session** → **`/chief-of-staff`**. It turns the session into a coordinator that **drives the main flow for you**: it hands every task to a subagent, follows `to-spec`, `to-issue`, `implement-spec` and `retro` as procedures, and keeps its memory in a dated, commit-cited wiki of its own for the goal, so several coordinators can pursue different goals side by side or one after another. It works on **two tracks** at once: finish the task in front of it, and improve the environment for the next one.
+- **A goal to pursue across many tasks, steered from one session** → **`/chief-of-staff`**. It turns the session into a coordinator that **drives the main flow for you**: it hands every task to a subagent, follows `to-spec`, `to-issue`, `implement-spec` and `retro` as procedures, and keeps its memory in a dated, commit-cited wiki of its own for the goal, so several coordinators can pursue different goals side by side or one after another. It **delegates and remembers**: the conversation stays with it, and when a task hits friction it offers you the environment change that would have made it easier.
 
   Where **`/implement-spec`** lands one spec in one run, chief-of-staff keeps feeding specs to it toward the goal. Where **`/wayfinder`** charts a foggy effort into decisions, chief-of-staff needs a goal clear enough to act on; when the way is still fogged in, map it with wayfinder first.
 
